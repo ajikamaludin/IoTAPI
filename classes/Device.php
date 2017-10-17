@@ -58,7 +58,7 @@ class Device
         $this->ip_address = $device['ip_address'];
         if($this->ip_address != null){
             $result = file_get_contents('http://'.$this->ip_address.'/io'.$this->port.'On');
-            if($rersult == '200'){
+            if($result == '200'){
                 return '200';
             }else{
                 return '404';
@@ -75,7 +75,7 @@ class Device
         $this->ip_address = $device['ip_address'];
         if($this->ip_address != null){
             $result = file_get_contents('http://'.$this->ip_address.'/io'.$this->port.'Off');
-            if($rersult == '200'){
+            if($result == '200'){
                 return '200';
             }else{
                 return '404';
@@ -100,7 +100,7 @@ class Device
 
     public function delete()
     {
-        $sql = $this->mDb->prepare("DELETE FROM `device1` WHERE `id` = '$this->id'");
+        $sql = $this->mDb->prepare("UPDATE `device1` SET `status` = 'notifed' WHERE `device1`.`id` = '$this->id'");
         if(!$sql->execute()){
             return '404';
         }else{
