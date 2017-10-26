@@ -1,2 +1,2 @@
 # IoTAPI
-slim  API untuk mengendalikan IoT
+slim  API untuk IoT
