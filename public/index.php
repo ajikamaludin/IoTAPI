@@ -9,10 +9,13 @@ header("Access-Control-Allow-Origin: *");
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
-$config['db']['host']   = "localhost";
-$config['db']['user']   = "root";
-$config['db']['pass']   = "eta";
-$config['db']['dbname'] = "IOB";
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
+$config['db']['host']   = $_ENV['DB_HOST'];
+$config['db']['user']   = $_ENV['DB_USER'];
+$config['db']['pass']   = $_ENV['DB_PASSWORD'];
+$config['db']['dbname'] = $_ENV['DB_NAME'];
 
 
 $app = new \Slim\App(["settings"=>$config]);
