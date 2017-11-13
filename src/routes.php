@@ -5,7 +5,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->add(new \Slim\Middleware\JwtAuthentication([
     "attribute" => "jwt",
-    "secret" => "secretAbc",
+    "secret" => getenv('API_KEY'),
     "callback" => function ($request, $response,$arguments) use ($container) {
         $container['jwt'] = $arguments['decoded'];       
     },
@@ -32,11 +32,13 @@ $app->get('/apiv2/index', function (Request $request, Response $response) {
 
 
 // Authentification
-$app->get('/apiv2/auth',function (Request $request,Response $response){
-    $users = new User($this->db);
-    
+$app->post('/apiv2/auth',function (Request $request,Response $response){
+    $user = new User($this->db);
+    $data = $request->getParsedBody();
+    $user->username = filter_var($data['username'], FILTER_SANITIZE_STRING);
+    $user->password = filter_var($data['password'], FILTER_SANITIZE_STRING);
     $response->getBody()->write($user->login());
-    return $users->login();
+    return $response;
 });
 
 // GET : mengambil semua device di database

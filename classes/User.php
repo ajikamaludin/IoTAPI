@@ -26,7 +26,22 @@ class User
     }
 
     public function login(){
-        return $this->getToken();
+
+        $encryptPassword = md5($this->password);
+
+        $query = "SELECT `users`.`username`,`users`.`password` FROM `users` WHERE 
+        `users`.`username` = '$this->username' AND `users`.`password` = '$encryptPassword'";
+
+        $user = $this->db->query($query);
+
+        $row = $user->rowCount();
+
+        if($row == 1){
+            return $this->getToken();
+        }else{
+            return "auth not acceptable";
+        }
+
     }
 
     private function getToken(){
@@ -35,7 +50,7 @@ class User
         $jti = new Base62;
         $jti = $jti->encode(random_bytes(16));
 
-        $secret = "secretAbc";
+        $secret = getenv('API_KEY');
 
         $payload = [
             "jti" => $jti,
