@@ -37,14 +37,14 @@ class User
         $row = $user->rowCount();
 
         if($row == 1){
-            return $this->getToken();
+            return $this->genToken();
         }else{
             return "auth not acceptable";
         }
 
     }
 
-    private function getToken(){
+    private function genToken(){
         $now = new DateTime();
         $future = new DateTime("now -1 minutes");
         $jti = new Base62;
