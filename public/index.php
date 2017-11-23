@@ -1,7 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Header: X-Requested-With, Content-Type, Accept, Origin, Authorization');
-header('Access-Control-Request-Header: X-Requested-With, Content-Type, Accept, Origin, Authorization');
+header('Access-Control-Allow-Header: *');
+header('Access-Control-Request-Header: *');
 
 require __DIR__ . '/../vendor/autoload.php';
 
