@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-//header('Access-Control-Allow-Header: *');
+header('Access-Control-Allow-Header: X-Requested-With, Content-Type, Accept, Origin, Authorization');
 
 require __DIR__ . '/../vendor/autoload.php';
 
