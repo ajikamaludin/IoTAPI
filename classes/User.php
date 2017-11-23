@@ -39,7 +39,7 @@ class User
         if($row == 1){
             return $this->genToken();
         }else{
-            return "auth not acceptable";
+            return "InvalidAction";
         }
 
     }

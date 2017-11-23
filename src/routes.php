@@ -19,7 +19,7 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
     "rules" => [
         new \Slim\Middleware\JwtAuthentication\RequestPathRule([
             "path" => "/apiv2",
-            "passthrough" => ["/apiv2/auth","/apiv2/index"]
+            "passthrough" => ["/apiv2/auth","/apiv2/index","/apiv2/ping"]
         ])
     ]
 ]));
@@ -30,6 +30,11 @@ $app->get('/apiv2/index', function (Request $request, Response $response) {
     return $response;
 });
 
+//Hanya ping
+$app->get('/apiv2/ping', function (Request $request, Response $response) {
+    $response->getBody()->write('pong');
+    return $response;
+});
 
 // Authentification
 $app->post('/apiv2/auth',function (Request $request,Response $response){
