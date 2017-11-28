@@ -19,7 +19,11 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
     "rules" => [
         new \Slim\Middleware\JwtAuthentication\RequestPathRule([
             "path" => "/apiv2",
-            "passthrough" => ["/apiv2/auth","/apiv2/index","/apiv2/ping","/apiv2/devices"]
+            "passthrough" => [
+                                "/apiv2/auth","/apiv2/index","/apiv2/ping",
+                                "/apiv2/devices","/apiv2/notif","/apiv2/status",
+                                "/apiv2/delete","/apiv2/update","/apiv2/add",
+                            ]
         ])
     ]
 ]));
