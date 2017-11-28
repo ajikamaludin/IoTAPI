@@ -49,8 +49,8 @@ $app->post('/apiv2/auth',function (Request $request,Response $response){
 // GET : mengambil semua device di database
 // curl -X GET http://localhost/apiv2/devices/
 $app->get('/apiv2/devices', function (Request $request, Response $response) {
-    $response = new Device($this->db);
-    $response->find();
+    $device = new Device($this->db);
+    $response->getBody()->write($device->find());
     return $response;
 });
 
