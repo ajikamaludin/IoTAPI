@@ -24,6 +24,9 @@ $app->add(new \Slim\Middleware\JwtAuthentication([
                                 "/apiv2/devices","/apiv2/notif","/apiv2/status",
                                 "/apiv2/delete","/apiv2/update","/apiv2/add",
                             ]
+        ]),
+        new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
+                "passthrough" => ["OPTIONS","GET","POST"]
         ])
     ]
 ]));
