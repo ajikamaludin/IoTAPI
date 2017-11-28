@@ -69,8 +69,7 @@ $app->get('/apiv2/notif/{ip}/{port}', function (Request $request, Response $resp
     $device->port = $args['port'];
     $device->device_name = "Unknow Device";
     $device->status = "notifed";
-    $device->save();
-    return $response;
+    return $response->getBody()->write($device->save());
 });
 
 // GET : digunakan untuk client menghubungi API agar API menghidupkan atau mematikan device
@@ -80,11 +79,11 @@ $app->get('/apiv2/device/{id}/{port}/{onf}', function (Request $request, Respons
     $device->id = $args['id'];
     $device->port = $args['port'];
     if($args['onf'] == '1'){
-        $response = $device->deviceOn();
+        $response->getBody()->write($device->deviceOn());
     }else if($args['onf'] == '0'){
-        $response = $device->deviceOff();
+        $response->getBody()->write($device->deviceOff());
     }else{
-        $response = "404";
+        $response->getBody()->write("404");
     }
     return $response;
 });
@@ -95,8 +94,7 @@ $app->get('/apiv2/status/{id}/{port}', function (Request $request, Response $res
     $device = new Device($this->db);
     $device->id = $args['id'];
     $device->port = $args['port'];
-    $response = $device->deviceStatus();
-    
+    $response->getBody()->write($device->deviceStatus());
     return $response;
 });
 
@@ -105,8 +103,7 @@ $app->get('/apiv2/status/{id}/{port}', function (Request $request, Response $res
 $app->get('/apiv2/delete/{id}', function (Request $request, Response $response, $args) {
     $device = new Device($this->db);
     $device->id = $args['id'];
-    $response = $device->delete();
-    
+    $response->getBody()->write($device->delete());
     return $response;
 });
 
@@ -117,7 +114,7 @@ $app->post('/apiv2/update', function (Request $request, Response $response, $arg
     $data = $request->getParsedBody();
     $device->id = filter_var($data['id'], FILTER_SANITIZE_STRING);
     $device->device_name = filter_var($data['nama'], FILTER_SANITIZE_STRING);
-    $response = $device->editName();
+    $response->getBody()->write($device->editName());
     return $response;
 });
 
@@ -126,6 +123,6 @@ $app->post('/apiv2/update', function (Request $request, Response $response, $arg
 $app->get('/apiv2/add/{id}', function (Request $request, Response $response, $args) {
     $device = new Device($this->db);
     $device->id = $args['id'];
-    $response = $device->editStatus();
+    $response->getBody()->write($device->editStatus());
     return $response;
 });
