@@ -108,6 +108,16 @@ class Device
         }
     }
 
+    public function Rdelete()
+    {
+        $sql = $this->mDb->prepare("DELETE FROM `device1` WHERE `device1`.`id` = '$this->id'");
+        if(!$sql->execute()){
+            return '404';
+        }else{
+            return '200';
+        }
+    }
+
     public function editName()
     {
         $sql = $this->mDb->query("UPDATE `device1` SET `device_name` = '$this->device_name' WHERE `device1`.`id` = '$this->id'");

@@ -107,6 +107,15 @@ $app->get('/apiv2/delete/{id}', function (Request $request, Response $response, 
     return $response;
 });
 
+// GET : digunakan untuk client menghubungi API agar API menghapus device di database
+// curl -X GET http://localhost/apiv2/delete/1
+$app->get('/apiv2/Rdelete/{id}', function (Request $request, Response $response, $args) {
+    $device = new Device($this->db);
+    $device->id = $args['id'];
+    $response->getBody()->write($device->Rdelete());
+    return $response;
+});
+
 // POST : digunakan untuk client menghubungi API agar API mengubah nama device di database
 // curl -X POST -d '{ "id":"54", "nama":"aji" }' http://localhost/apiv2/update  
 $app->post('/apiv2/update', function (Request $request, Response $response, $args) {
