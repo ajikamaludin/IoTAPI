@@ -98,6 +98,19 @@ class Device
         }
     }
 
+    public function deviceWatt()
+    {       
+        $sql = $this->mDb->query("SELECT ip_address FROM device1 WHERE id = '$this->id'");
+        $device = $sql->fetch();
+        $this->ip_address = $device['ip_address'];
+        if($this->ip_address != null){
+            $result = file_get_contents('http://'.$this->ip_address.'/io'.$this->port.'Arus');
+            return $result;
+        }else{
+            return '404';
+        }
+    }
+
     public function delete()
     {
         $sql = $this->mDb->prepare("UPDATE `device1` SET `status` = 'notifed' WHERE `device1`.`id` = '$this->id'");

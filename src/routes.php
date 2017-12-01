@@ -136,12 +136,12 @@ $app->get('/apiv2/add/{id}', function (Request $request, Response $response, $ar
     return $response;
 });
 
-// GET : digunakan untuk 
-// curl -X GET http://localhost/apiv2/add/1
-$app->get('/apiv2/watt/{ip}/{watt}', function (Request $request, Response $response, $args) {
+// GET : digunakan untuk client menghubungi API agar API memerikasa watt device
+// curl -X GET http://localhost/apiv2/watt/1/1 #untuk memeriksa watt device port 1
+$app->get('/apiv2/watt/{id}/{port}', function (Request $request, Response $response, $args) {
     $device = new Device($this->db);
-    $device->ip = $args['ip'];
-    $device->watt = $args['watt'];
-    $response->getBody()->write($device->setWatt());    
+    $device->id = $args['id'];
+    $device->port = $args['port'];
+    $response->getBody()->write($device->deviceWatt());
     return $response;
 });
