@@ -135,3 +135,13 @@ $app->get('/apiv2/add/{id}', function (Request $request, Response $response, $ar
     $response->getBody()->write($device->editStatus());
     return $response;
 });
+
+// GET : digunakan untuk 
+// curl -X GET http://localhost/apiv2/add/1
+$app->get('/apiv2/watt/{ip}/{watt}', function (Request $request, Response $response, $args) {
+    $device = new Device($this->db);
+    $device->ip = $args['ip'];
+    $device->watt = $args['watt'];
+    $response->getBody()->write($device->setWatt());    
+    return $response;
+});
